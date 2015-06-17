@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jsr-server</artifactId>
+    <artifactId>wave-jsm943</artifactId>
 
     <dependencies>
         <dependency>
