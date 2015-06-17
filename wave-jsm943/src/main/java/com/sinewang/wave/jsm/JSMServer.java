@@ -25,7 +25,13 @@ public class JSMServer {
     private Logger log = LoggerFactory.getLogger(JSMServer.class);
 
 
+    private static String DIR_WEBROOT = "../WebRoot";
+
+
     public static void main(String[] args) throws Exception {
+        if (args.length == 1) {
+            DIR_WEBROOT = args[0];
+        }
         new JSMServer().startExploded();
     }
 
@@ -51,7 +57,7 @@ public class JSMServer {
             ResourceHandler resourceHandler = new ResourceHandler();
             MimeTypes mimeTypes = resourceHandler.getMimeTypes();
             mimeTypes.addMimeMapping("html", "text/html; charset=UTF-8");
-            resourceHandler.setResourceBase("wave-jsm943/WebRoot");
+            resourceHandler.setResourceBase(DIR_WEBROOT);
             resourceHandler.setDirectoriesListed(false);
             context.setHandler(resourceHandler);
         }
