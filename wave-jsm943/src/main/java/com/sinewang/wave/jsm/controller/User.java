@@ -12,17 +12,18 @@ import javax.servlet.http.HttpServletResponse;
  * Created by wangyanjiong on 6/15/15.
  */
 @RestController
-public class UserLogin {
+public class User {
 
 
-    @RequestMapping("/login")
-    public RESTResult login(@RequestParam String username, @RequestParam String password, HttpServletRequest request, HttpServletResponse response) {
-        if (username.equals("admin")) {
-            request.getSession().setAttribute("wave-user", username);
-            return RESTResult.newSuccess("OK");
+    @RequestMapping("/user")
+    public RESTResult user(HttpServletRequest request) {
+        Object user = request.getSession().getAttribute("wave-user");
+        if (user != null) {
+            return RESTResult.newSuccess(user);
         } else {
-            return RESTResult.newFailed(-1, "LoginFailed");
+            return RESTResult.newFailed(-1, "Not Found User");
         }
+
     }
 
 }

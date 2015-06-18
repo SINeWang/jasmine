@@ -25,7 +25,11 @@ public class LoginFilter implements Filter {
             String path = httpRequest.getRequestURI();
             if (!path.equals("/signin") && !path.equals("/login") && !path.startsWith("/api")) {
                 String redirectURL = ((HttpServletRequest) request).getRequestURI();
-                httpResponse.sendRedirect("/signin?g=" + URLEncoder.encode(redirectURL, "utf-8"));
+                if (!redirectURL.equals("/main")) {
+                    httpResponse.sendRedirect("/signin?g=" + URLEncoder.encode(redirectURL, "utf-8"));
+                } else {
+                    httpResponse.sendRedirect("/signin");
+                }
                 return;
             }
         }

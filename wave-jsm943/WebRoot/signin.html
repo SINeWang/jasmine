@@ -17,6 +17,7 @@
     <link href="css/signin.css" rel="stylesheet">
 
     <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/md5.js"></script>
 
     <![endif]-->
 </head>
@@ -37,10 +38,12 @@
 </div>
 <script>
     function login() {
+        var pwd = $("input[name='password']").val();
+        pwd = CryptoJS.MD5(pwd);
         $.ajax({
             type: 'GET',
             url: '/login',
-            data: 'username=' + $("input[name='username']").val() + '&password=' + $("input[name='password']").val(),
+            data: 'username=' + $("input[name='username']").val() + '&password=' + pwd,
             success: function (data) {
                 var ret = eval(data);
                 if (ret.c == 0) {
