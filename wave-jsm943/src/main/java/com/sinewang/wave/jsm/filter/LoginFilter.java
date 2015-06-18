@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * Created by WangYanJiong on 10/24/14.
@@ -19,16 +20,15 @@ public class LoginFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
-//        Object user = session.getAttribute("oscars-user");
-//        if (user == null) {
-//            String path = httpRequest.getRequestURI();
-//            if (!path.equals("/sso")) {
-//                if (!path.equals("/login")) {
-//                    httpResponse.setStatus(302);
-//                    return;
-//                }
-//            }
-//        }
+        Object user = session.getAttribute("wave-user");
+        if (user == null) {
+            String path = httpRequest.getRequestURI();
+            if (!path.equals("/signin") && !path.equals("/login") && !path.startsWith("/api")) {
+                String redirectURL = ((HttpServletRequest) request).getRequestURI();
+                httpResponse.sendRedirect("/signin?g=" + URLEncoder.encode(redirectURL, "utf-8"));
+                return;
+            }
+        }
         filterChain.doFilter(request, response);
     }
 

@@ -5,6 +5,7 @@ import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.http.MimeTypes;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.util.ConcurrentHashSet;
 import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -12,6 +13,7 @@ import org.eclipse.jetty.xml.XmlConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
+import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
@@ -25,12 +27,15 @@ public class JSMServer {
     private Logger log = LoggerFactory.getLogger(JSMServer.class);
 
 
+    private static String DIR_CONF = ".";
+
     private static String DIR_WEBROOT = "../WebRoot";
 
 
     public static void main(String[] args) throws Exception {
-        if (args.length == 1) {
+        if (args.length == 2) {
             DIR_WEBROOT = args[0];
+            DIR_CONF = args[1];
         }
         new JSMServer().startExploded();
     }
@@ -62,8 +67,10 @@ public class JSMServer {
             context.setHandler(resourceHandler);
         }
 
-        context.addFilter(LoginFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
+        context.addFilter(LoginFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD));
 
+        FilterHolder filterHolder = context.addFilter(UrlRewriteFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD));
+        filterHolder.setInitParameter("confPath", "urlrewrite.xml");
 
         return context;
     }
