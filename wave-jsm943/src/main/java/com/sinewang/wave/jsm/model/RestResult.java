@@ -1,5 +1,7 @@
 package com.sinewang.wave.jsm.model;
 
+import com.sinewang.wave.jsm.util.InstanceSignature;
+
 import java.io.Serializable;
 
 /**
@@ -13,29 +15,26 @@ public class RESTResult implements Serializable {
 
     private Object d;
 
+    private String i;
+
+    private final static String I = InstanceSignature.fromHostName();
+
     public static RESTResult newSuccess(Object data) {
         RESTResult r = new RESTResult();
         r.c = 0;
         r.d = data;
-        return r;
+            return r;
     }
 
-    public static RESTResult newFailed(int code, String message, Object data) {
+    public static RESTResult newFailed(int base, Enum<?> codeMessage) {
         RESTResult r = new RESTResult();
-        r.c = code;
-        r.m = message;
-        r.d = data;
-        return r;
-    }
-
-    public static RESTResult newFailed(int code, String message) {
-        RESTResult r = new RESTResult();
-        r.c = code;
-        r.m = message;
+        r.c = base + codeMessage.ordinal();
+        r.m = codeMessage.name();
         return r;
     }
 
     private RESTResult() {
+        this.i = I;
     }
 
 
@@ -51,4 +50,7 @@ public class RESTResult implements Serializable {
         return d;
     }
 
+    public String getI() {
+        return i;
+    }
 }

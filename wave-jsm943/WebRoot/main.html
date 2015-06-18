@@ -238,16 +238,19 @@
 <script src="js/bootstrap.min.js"></script>
 <script>
     $(function () {
+        loadUser()
+    });
+
+    function loadUser() {
+        beforeAction("Loading...");
         $.ajax({
             type: 'GET',
             url: '/user',
             success: function (data) {
                 var ret = eval(data);
                 if (ret.c == 0) {
-                    var v = $("#navbar-brand").html();
-                    v = ret.d + "@sinewang.com";
+                    var v = ret.d + "@sinewang.com";
                     $("#navbar-brand").html(v);
-                    updateStatus("");
                 } else {
                     alert(ret.m);
                 }
@@ -255,13 +258,21 @@
             error: function (data) {
                 alert(data);
             },
+            complete: function (data) {
+                afterAction();
+            },
             dataType: 'json'
         });
-    });
+    }
 
-    function updateStatus(status){
+    function beforeAction(status) {
         $("#status").html(status);
     }
+
+    function afterAction() {
+        $("#status").html("");
+    }
+
 </script>
 </body>
 </html>
