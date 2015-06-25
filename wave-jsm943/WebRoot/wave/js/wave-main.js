@@ -33,13 +33,17 @@ waveApp.config(function ($routeProvider, $locationProvider) {
         })
         .when('/order', {
             templateUrl: 'pages/order.html',
-            controller: 'mainController'
+            controller: 'orderController'
         });
     $locationProvider.html5Mode(false);
 });
 
 
 waveApp.controller('mainController', function ($scope) {
+    loadUser();
+});
+
+waveApp.controller('orderController', function ($scope) {
 
     $scope.message = 'Everyone come and see how good I look!';
 });
