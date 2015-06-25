@@ -13,7 +13,7 @@ function loadUser() {
             }
         },
         error: function (data) {
-            alert(data);
+            window.location.href = '/signin';
         },
         complete: function (data) {
             afterAction();
@@ -21,3 +21,25 @@ function loadUser() {
         dataType: 'json'
     });
 }
+
+var waveApp = angular.module('waveApp', ['ngRoute']);
+
+// configure our routes
+waveApp.config(function ($routeProvider, $locationProvider) {
+    $routeProvider
+        .when('/', {
+            templateUrl: 'pages/main.html',
+            controller: 'mainController'
+        })
+        .when('/order', {
+            templateUrl: 'pages/order.html',
+            controller: 'mainController'
+        });
+    $locationProvider.html5Mode(false);
+});
+
+
+waveApp.controller('mainController', function ($scope) {
+
+    $scope.message = 'Everyone come and see how good I look!';
+});

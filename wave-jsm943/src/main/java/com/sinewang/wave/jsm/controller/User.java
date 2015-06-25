@@ -49,7 +49,7 @@ public class User {
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute(SESSION_KEY_USER);
         try {
-            response.sendRedirect("/");
+            response.sendRedirect("/signin");
         } catch (IOException e) {
             e.printStackTrace();
         }

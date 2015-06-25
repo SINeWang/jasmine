@@ -11,7 +11,7 @@
             <pattern>%date{ISO8601} %-5level %logger{36}:%L %X{sourceThread} - %msg%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>%d{yyyy-MM-dd}.wave.log</fileNamePattern>
+            <fileNamePattern>%d{dd-MM-yyyy}.wave.log</fileNamePattern>
             <maxHistory>15</maxHistory>
         </rollingPolicy>
     </appender>
