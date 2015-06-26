@@ -1,4 +1,7 @@
 function loadUser($scope) {
+    if ($scope.userId != null) {
+        return;
+    }
     $.ajax({
         type: 'GET',
         url: '/user',
@@ -50,5 +53,9 @@ waveApp.config(function ($routeProvider) {
         .when('/config', {
             templateUrl: 'pages/config.html',
             controller: 'configController'
-        });
+        })
+        .otherwise({
+            redirectTo: '/dashboard'
+        })
+    ;
 });
