@@ -1,15 +1,31 @@
-function beforeAction(status) {
-    $("#status").html(status);
+function loadUser($scope) {
+    $.ajax({
+        type: 'GET',
+        url: '/user',
+        success: function (data) {
+            var ret = eval(data);
+            if (ret.c == 0) {
+                $scope.userId = ret.d.userId;
+                $scope.modules = ret.d.modules;
+            } else {
+                alert(ret.m);
+            }
+        },
+        error: function (data) {
+            window.location.href = '/signin';
+        },
+        complete: function (data) {
+        },
+        dataType: 'json'
+    });
 }
-
-function afterAction() {
-    $("#status").html("");
-}
-
 
 function active_nav(module) {
     if (module == null || module == '') {
         module = window.location.href.split("#")[1];
+        if (module.contains("/")) {
+            module = module.split("/")[1];
+        }
     }
     $('#nav-li > li').each(function (i, l) {
         var li = $(l);
@@ -20,3 +36,19 @@ function active_nav(module) {
         }
     })
 }
+
+
+var waveApp = angular.module('waveApp', ['ngRoute']);
+
+// configure our routes
+waveApp.config(function ($routeProvider) {
+    $routeProvider
+        .when('/dashboard', {
+            templateUrl: 'pages/dashboard.html',
+            controller: 'dashboardController'
+        })
+        .when('/config', {
+            templateUrl: 'pages/config.html',
+            controller: 'configController'
+        });
+});

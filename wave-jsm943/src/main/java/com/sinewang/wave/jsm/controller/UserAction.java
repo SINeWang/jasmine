@@ -1,6 +1,8 @@
 package com.sinewang.wave.jsm.controller;
 
+import com.sinewang.wave.jsm.model.Module;
 import com.sinewang.wave.jsm.model.RESTResult;
+import com.sinewang.wave.jsm.model.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +15,7 @@ import java.io.IOException;
  * Created by wangyanjiong on 6/15/15.
  */
 @RestController
-public class User {
+public class UserAction {
 
 
     private final int CODE_BASE = 101;
@@ -27,7 +29,12 @@ public class User {
 
     @RequestMapping("/user")
     public RESTResult user(HttpServletRequest request) {
-        Object user = request.getSession().getAttribute(SESSION_KEY_USER);
+        String userId = (String) request.getSession().getAttribute(SESSION_KEY_USER);
+        User user = new User();
+        user.setUserId(userId);
+        user.addModule(new Module("dashboard", "Dashboard"));
+        user.addModule(new Module("user", "用户"));
+        user.addModule(new Module("config", "配置"));
         if (user != null) {
             return RESTResult.newSuccess(user);
         } else {

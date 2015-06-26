@@ -1,4 +1,4 @@
-package com.sinewang.wave.jsm.controller;
+package com.sinewang.wave.jsm.api;
 
 import com.sinewang.wave.jsm.model.Config;
 import com.sinewang.wave.jsm.service.ConfigService;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api")
-public class ConfigController {
+public class ConfigApi {
 
     @Autowired
     private ConfigService service;
