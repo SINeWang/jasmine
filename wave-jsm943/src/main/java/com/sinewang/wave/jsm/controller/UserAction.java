@@ -3,6 +3,9 @@ package com.sinewang.wave.jsm.controller;
 import com.sinewang.wave.jsm.model.Module;
 import com.sinewang.wave.jsm.model.RESTResult;
 import com.sinewang.wave.jsm.model.User;
+import com.sinewang.wave.jsm.service.ConfigService;
+import com.sinewang.wave.jsm.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,14 +30,14 @@ public class UserAction {
         username_or_password_error
     }
 
+    @Autowired
+    private UserService service;
+
     @RequestMapping("/user")
     public RESTResult user(HttpServletRequest request) {
         String userId = (String) request.getSession().getAttribute(SESSION_KEY_USER);
-        User user = new User();
-        user.setUserId(userId);
-        user.addModule(new Module("dashboard", "Dashboard"));
-        user.addModule(new Module("user", "用户"));
-        user.addModule(new Module("config", "配置"));
+
+        User user = service.getUser(userId, "system");
         if (user != null) {
             return RESTResult.newSuccess(user);
         } else {

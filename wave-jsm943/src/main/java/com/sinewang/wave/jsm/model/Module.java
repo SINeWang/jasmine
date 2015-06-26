@@ -1,9 +1,11 @@
 package com.sinewang.wave.jsm.model;
 
+import java.io.Serializable;
+
 /**
  * Created by wangyanjiong on 6/26/15.
  */
-public class Module {
+public class Module implements Serializable{
 
     private String moduleId;
 
