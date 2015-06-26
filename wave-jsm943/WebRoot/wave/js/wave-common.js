@@ -13,7 +13,7 @@ function active_nav(module) {
     }
     $('#nav-li > li').each(function (i, l) {
         var li = $(l);
-        if (li.attr('id').indexOf(uri) > 0) {
+        if (li.attr('id').indexOf(module) > 0) {
             li.removeClass().addClass("active");
         } else {
             li.removeAttr('class');

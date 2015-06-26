@@ -41,8 +41,8 @@ public class JSMServer {
     }
 
     private void startExploded() throws Exception {
-        XmlConfiguration config = new XmlConfiguration(this.getClass().getResource("/jetty.xml"));
         Server server = new Server();
+        XmlConfiguration config = new XmlConfiguration(this.getClass().getResource("/jetty.xml"));
         config.configure(server);
         server.setHandler(context());
         server.start();

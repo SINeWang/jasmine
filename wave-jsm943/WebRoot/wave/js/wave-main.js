@@ -25,7 +25,7 @@ function loadUser() {
 var waveApp = angular.module('waveApp', ['ngRoute']);
 
 // configure our routes
-waveApp.config(function ($routeProvider, $locationProvider) {
+waveApp.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'pages/main.html',
@@ -35,9 +35,10 @@ waveApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'pages/order.html',
             controller: 'orderController'
         });
-    $locationProvider.html5Mode(false);
 });
 
+waveApp.controller('naviController', function ($scope) {
+});
 
 waveApp.controller('mainController', function ($scope) {
     loadUser();
