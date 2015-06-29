@@ -27,15 +27,12 @@ public class JSMServer {
     private Logger log = LoggerFactory.getLogger(JSMServer.class);
 
 
-    private static String DIR_CONF = ".";
-
     private static String DIR_WEBROOT = "../WebRoot";
 
 
     public static void main(String[] args) throws Exception {
-        if (args.length == 2) {
+        if (args.length == 1) {
             DIR_WEBROOT = args[0];
-            DIR_CONF = args[1];
         }
         new JSMServer().startExploded();
     }
