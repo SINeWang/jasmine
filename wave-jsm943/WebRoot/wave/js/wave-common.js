@@ -1,5 +1,5 @@
 function loadUser($scope) {
-    if ($scope.userId != null) {
+    if ($scope.userId) {
         return;
     }
     $.ajax({
@@ -10,6 +10,7 @@ function loadUser($scope) {
             if (ret.c == 0) {
                 $scope.userId = ret.d.userId;
                 $scope.modules = ret.d.modules;
+                $scope.$broadcast('actions', ret.d.modules);
             } else {
                 alert(ret.m);
             }
@@ -50,9 +51,9 @@ waveApp.config(function ($routeProvider) {
             templateUrl: 'pages/dashboard.html',
             controller: 'dashboardController'
         })
-        .when('/config', {
-            templateUrl: 'pages/config.html',
-            controller: 'configController'
+        .when('/system', {
+            templateUrl: 'pages/system.html',
+            controller: 'systemController'
         })
         .otherwise({
             redirectTo: '/dashboard'

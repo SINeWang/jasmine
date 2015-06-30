@@ -1,4 +1,4 @@
-waveApp.controller('dashboardController', function ($scope) {
+waveApp.controller('mainController', function ($scope) {
     loadUser($scope);
 
     $scope.active_nav = function (module) {

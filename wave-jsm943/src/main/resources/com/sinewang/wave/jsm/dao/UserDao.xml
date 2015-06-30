@@ -10,6 +10,12 @@
         <result column="module_id" property="moduleId"/>
         <result column="module_name" property="moduleName"/>
     </resultMap>
+    <resultMap type="Action" id="Action">
+        <result column="action_id" property="actionId"/>
+        <result column="action_name" property="actionName"/>
+    </resultMap>
+
+
     <select id="getUser" resultMap="User">
         SELECT u.user_id, u.user_password, u.user_name FROM wave_user u
         LEFT JOIN wave_user_cpny uc ON u.user_id = uc.user_id
@@ -18,9 +24,28 @@
     </select>
 
     <select id="getModulesByUser" resultMap="Module">
-        SELECT m.module_id, m.module_name FROM wave_module m
-        LEFT JOIN wave_user_module um ON m.module_id = um.module_id
-        WHERE um.user_id = #{userId}
-        ORDER BY um.index ASC
+        SELECT
+            m.module_id, m.module_name
+        FROM wave_module m
+        LEFT JOIN wave_role_module rm ON rm.module_id = m.module_id
+        LEFT JOIN wave_user_role ur On ur.role_id = rm.role_id
+        WHERE ur.user_id = #{userId}
+        ORDER BY m.index ASC
+    </select>
+
+    <select id="getActionsByUser" resultMap="Action">
+        SELECT
+            a.action_id, a.action_name
+        FROM
+            wave_action a
+        LEFT JOIN wave_role_module rm ON a.module_id = rm.module_id
+        LEFT JOIN wave_user_role ur ON ur.role_id = rm.role_id
+        <where>
+            ur.user_id =  #{userId}
+            <if test="moduleId != null">
+               AND a.module_id = #{moduleId}
+            </if>
+        </where>
+        ORDER BY a.index ASC
     </select>
 </mapper>

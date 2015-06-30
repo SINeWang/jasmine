@@ -38,10 +38,6 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
-
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
