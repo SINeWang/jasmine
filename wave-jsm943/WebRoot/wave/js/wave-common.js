@@ -1,7 +1,4 @@
 function loadUser($scope) {
-    if ($scope.userId) {
-        return;
-    }
     $.ajax({
         type: 'GET',
         url: '/user',

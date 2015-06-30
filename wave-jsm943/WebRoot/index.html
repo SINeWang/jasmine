@@ -42,15 +42,24 @@
                 </li>
             </ul>
             <ul class=" nav navbar-nav navbar-right">
-                <li><a href="#" id="status"></a></li>
                 <li><a href="logout">Logout</a></li>
             </ul>
         </div>
-        <!--/.nav-collapse -->
     </div>
 </nav>
+<div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar" ng-repeat="a in actions">
+            <li><a href="#{{moduleId}}/{{a.actionId}}">{{ a.actionName }}</a></li>
+        </ul>
+        <ul class="nav nav-sidebar">
+            <li><a href="#">2313131</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
 
-<div class="container-fluid" ng-view>
+
+    </div>
 </div>
 
 <!-- Bootstrap core JavaScript
