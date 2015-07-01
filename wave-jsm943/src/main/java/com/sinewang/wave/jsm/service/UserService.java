@@ -30,4 +30,8 @@ public class UserService {
         }
         return user;
     }
+
+    public List<Action> getActionsByUserModule(String userId, String moduleId) {
+        return userDao.getActionsByUser(userId, moduleId);
+    }
 }

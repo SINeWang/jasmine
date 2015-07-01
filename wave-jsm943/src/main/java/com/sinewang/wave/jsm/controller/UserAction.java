@@ -1,9 +1,8 @@
 package com.sinewang.wave.jsm.controller;
 
-import com.sinewang.wave.jsm.model.Module;
+import com.sinewang.wave.jsm.model.Action;
 import com.sinewang.wave.jsm.model.RESTResult;
 import com.sinewang.wave.jsm.model.User;
-import com.sinewang.wave.jsm.service.ConfigService;
 import com.sinewang.wave.jsm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by wangyanjiong on 6/15/15.
@@ -27,7 +27,8 @@ public class UserAction {
 
     public enum UserCode {
         cannot_find_user,
-        username_or_password_error
+        username_or_password_error,
+        get_actions_by_user_module_error
     }
 
     @Autowired
@@ -42,6 +43,18 @@ public class UserAction {
             return RESTResult.newSuccess(user);
         } else {
             return RESTResult.newFailed(CODE_BASE, UserCode.cannot_find_user);
+        }
+    }
+
+    @RequestMapping("/user/actions")
+    public RESTResult userActions(@RequestParam String moduleId, HttpServletRequest request) {
+        String userId = (String) request.getSession().getAttribute(SESSION_KEY_USER);
+
+        List<Action> actions = service.getActionsByUserModule(userId, moduleId);
+        if (actions != null) {
+            return RESTResult.newSuccess(actions);
+        } else {
+            return RESTResult.newFailed(CODE_BASE, UserCode.get_actions_by_user_module_error);
         }
     }
 

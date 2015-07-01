@@ -7,7 +7,6 @@ function loadUser($scope) {
             if (ret.c == 0) {
                 $scope.userId = ret.d.userId;
                 $scope.modules = ret.d.modules;
-                $scope.$broadcast('actions', ret.d.modules);
             } else {
                 alert(ret.m);
             }
@@ -38,6 +37,34 @@ function active_nav(module) {
     })
 }
 
+function build_menu(module, $scope) {
+    if (module == null || module == '') {
+        module = window.location.href.split("#")[1];
+        if (module.contains("/")) {
+            module = module.split("/")[1];
+        }
+    }
+    $.ajax({
+        type: 'GET',
+        url: '/user/actions?moduleId=' + module,
+        success: function (data) {
+            var ret = eval(data);
+            if (ret.c == 0) {
+                $scope.$apply(function () {
+                    $scope.actions = ret.d;
+                    $scope.moduleId = module;
+                });
+            } else {
+                alert(ret.m);
+            }
+        },
+        error: function (data) {
+            window.location.href = '/signin';
+        },
+        dataType: 'json'
+    });
+}
+
 
 var waveApp = angular.module('waveApp', ['ngRoute']);
 
@@ -46,10 +73,14 @@ waveApp.config(function ($routeProvider) {
     $routeProvider
         .when('/dashboard', {
             templateUrl: 'pages/dashboard.html',
-            controller: 'dashboardController'
+            controller: ''
         })
         .when('/system', {
             templateUrl: 'pages/system.html',
+            controller: 'systemController'
+        })
+        .when('/system/user', {
+            templateUrl: 'pages/system-user.html',
             controller: 'systemController'
         })
         .otherwise({
