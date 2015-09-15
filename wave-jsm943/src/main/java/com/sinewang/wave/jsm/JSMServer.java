@@ -27,12 +27,18 @@ public class JSMServer {
     private Logger log = LoggerFactory.getLogger(JSMServer.class);
 
 
-    private static String DIR_WEBROOT = "../WebRoot";
+    private static String DIR_WEBROOT = "../webapp";
+
+    private static String ARTIFACT_ID = "wave-jsm943";
 
 
     public static void main(String[] args) throws Exception {
+        String currentDirectory = System.getProperty("user.dir") + "/";
+
         if (args.length == 1) {
             DIR_WEBROOT = args[0];
+        } else {
+            DIR_WEBROOT = currentDirectory + ARTIFACT_ID + "/src/main/webapp";
         }
         new JSMServer().startExploded();
     }
