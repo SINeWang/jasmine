@@ -25,7 +25,7 @@
             <fileMode>0755</fileMode>
         </fileSet>
         <fileSet>
-            <directory>WebRoot</directory>
+            <directory>src/main/webapp</directory>
             <outputDirectory>/WebRoot</outputDirectory>
             <fileMode>0755</fileMode>
         </fileSet>

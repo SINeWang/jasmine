@@ -27,7 +27,7 @@ public class JSMServer {
     private Logger log = LoggerFactory.getLogger(JSMServer.class);
 
 
-    private static String DIR_WEBROOT = "../webapp";
+    private static String DIR_WEBROOT = "../WebRoot";
 
     private static String ARTIFACT_ID = "wave-jsm943";
 
