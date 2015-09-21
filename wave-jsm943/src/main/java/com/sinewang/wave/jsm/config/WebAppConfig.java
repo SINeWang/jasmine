@@ -12,6 +12,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.sinewang.wave.jsm")
-public class BaseConfig {
+public class WebAppConfig {
 
 }

@@ -3,7 +3,6 @@
     <cache/>
     <resultMap type="User" id="User">
         <result column="user_id" property="userId"/>
-        <result column="user_password" property="userPassword"/>
         <result column="user_name" property="userName"/>
     </resultMap>
     <resultMap type="Module" id="Module">
@@ -17,7 +16,7 @@
 
 
     <select id="getUser" resultMap="User">
-        SELECT u.user_id, u.user_password, u.user_name FROM wave_user u
+        SELECT u.user_id, u.user_name FROM wave_user u
         LEFT JOIN wave_user_cpny uc ON u.user_id = uc.user_id
         WHERE u.user_id = #{userId}
         AND uc.cpny_id = #{companyId}

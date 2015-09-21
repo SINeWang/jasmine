@@ -1,5 +1,6 @@
 package com.sinewang.wave.jsm;
 
+import com.sinewang.wave.jsm.config.WebAppConfig;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
@@ -24,7 +25,7 @@ public class JSMInitializer implements WebApplicationInitializer {
 
     private AnnotationConfigWebApplicationContext context() {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.setConfigLocation("com.sinewang.wave.jsm.config");
+        context.setConfigLocation(WebAppConfig.class.getPackage().getName());
         return context;
     }
 
